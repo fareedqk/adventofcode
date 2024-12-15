@@ -21,7 +21,7 @@ def count_safe_reports(file_path):
 
     return safe_count
 
-file_path = "day02/input.txt"
+file_path = "2024/day02/input.txt"
 
 try:
     safe_reports = count_safe_reports(file_path)
