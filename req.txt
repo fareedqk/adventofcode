@@ -1,0 +1,10 @@
+pandas
+llist
+numpy
+packaging
+pathspec
+pillow
+platformdirs
+pyflakes
+scipy
+setuptools
