@@ -1,5 +1,4 @@
 def read_program(file_path):
-    """Reads the program from the file."""
     with open(file_path, 'r') as file:
         lines = file.readlines()
     
@@ -21,7 +20,6 @@ def read_program(file_path):
 
 
 def get_operand_value(operand, registers):
-    """Calculates the value of a combo operand."""
     if operand <= 3:
         return operand
     elif operand == 4:
@@ -35,7 +33,6 @@ def get_operand_value(operand, registers):
 
 
 def execute_program(registers, program):
-    """Executes the given program."""
     instruction_pointer = 0
     output = []
 
