@@ -1,5 +1,4 @@
 import heapq
-from collections import deque
 from rich import print
 
 def read_input(file_path):
@@ -20,7 +19,6 @@ def find_shortest_path(grid):
     end = (len(grid) - 1, len(grid[0]) - 1)
     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-    # Priority queue for A* algorithm
     queue = [(0, start)]  # (cost, position)
     visited = set()
 
@@ -32,7 +30,6 @@ def find_shortest_path(grid):
 
         visited.add((x, y))
 
-        # If we reach the destination, return the cost
         if (x, y) == end:
             return cost
 
@@ -41,16 +38,14 @@ def find_shortest_path(grid):
             if 0 <= nx <= end[0] and 0 <= ny <= end[1] and grid[ny][nx] == "." and (nx, ny) not in visited:
                 heapq.heappush(queue, (cost + 1, (nx, ny)))
 
-    return -1  # Return -1 if there's no path
+    return -1 # if there's no path
 
 def main():
     file_path = "2024/day18/input.txt"
     corrupted_positions = read_input(file_path)
 
-    # Simulate the falling bytes
     grid = simulate_falling_bytes(corrupted_positions)
 
-    # Find the shortest path
     min_steps = find_shortest_path(grid)
 
     print("The minimum number of steps to reach the exit:")
