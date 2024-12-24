@@ -25,7 +25,6 @@ class CircuitSimulator:
             
         op, in1, in2 = self.gates[output]
         
-        # Try to process inputs if we don't have their values yet
         if in1 not in self.wires:
             if not self.process_gate(in1):
                 return False
@@ -33,7 +32,6 @@ class CircuitSimulator:
             if not self.process_gate(in2):
                 return False
                 
-        # Now we can process this gate
         self.wires[output] = self.apply_gate(op, self.wires[in1], self.wires[in2])
         self.processed_gates.add(output)
         return True
@@ -45,39 +43,32 @@ class CircuitSimulator:
                 if not line:
                     continue
                     
-                # Handle initial wire values
                 if ':' in line:
                     wire, value = line.split(':')
                     self.wires[wire.strip()] = int(value.strip())
                     continue
                     
-                # Handle gate definitions
                 parts = line.split()
                 if len(parts) == 5 and parts[3] == "->":
                     in1, op, in2, _, output = parts
                     self.gates[output] = (op, in1, in2)
     
     def simulate(self) -> int:
-        # Process all z-wires
         z_wires = sorted([wire for wire in self.gates.keys() if wire.startswith('z')], 
                         key=lambda x: int(x[1:]) if x[1:].isdigit() else -1)
         
-        # Process each z-wire
         for wire in z_wires:
             if not self.process_gate(wire):
                 print(f"Failed to process wire: {wire}")
         
-        # Build binary string
         binary = ""
         for wire in z_wires:
             if wire in self.wires:
                 binary = str(self.wires[wire]) + binary  # Prepend the bit
         
-        # Convert to decimal
         return int(binary, 2)
 
     def print_wire_values(self):
-        # Print all wire values in sorted order
         z_wires = sorted([wire for wire in self.wires.keys() if wire.startswith('z')],
                         key=lambda x: int(x[1:]) if x[1:].isdigit() else -1)
         print("\nZ-wire values (from z0 to highest):")

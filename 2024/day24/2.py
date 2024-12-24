@@ -2,6 +2,7 @@ import random
 from functools import cache
 from itertools import product, combinations
 from collections import defaultdict, deque
+from rich import print
 
 def lines(s: str):
     return s.strip().split('\n')
@@ -163,5 +164,4 @@ def f(i: int, swapped: set[str]):
         swapped.remove(b)
         ops[a], ops[b] = ops[b], ops[a]
 
-# Start the search
 f(0, set())
